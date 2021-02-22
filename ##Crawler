@@ -1,0 +1,53 @@
+##Crawler
+#open the file and store the file handler as a variable
+fh = open("Video_Games.csv")
+#translate file handler to a string
+flines = fh.readlines()
+flines
+In [3]:
+##INDEXER
+#open the file and store the file handler as a variable
+fh = open("Video_Games.csv")
+#translate file handler to a string
+flines = fh.readlines()
+#create an empty dictionary for 
+genre_to_name = {}
+#traverse through file lines
+for line in flines:
+    #get rid of trailing new line
+    line.strip()
+    #split each catagory into a list
+    new_line = line.split(",")
+    #parse for name
+    name = new_line[0]
+    #platform = new_line[1]
+    #parse for genre
+    genre = new_line[3]
+    #add critic score ratings
+    critic_score = new_line[10]
+    #make a variable that combines name and critic score
+    #title_rating = name + "|Rating: "+ critic_score
+    #get the current value defualt to empty list
+    name_list = genre_to_name.get(genre, [])
+    #if game falls within that genre then append it to the list for that key
+    #checker for duplicates
+    if name not in name_list:
+        name_list.append(name)
+    #update the dictionary
+    genre_to_name.update({genre: name_list})
+
+genre_to_name
+In [ ]:
+##SEARCH QUERY
+#reserved_list = ['Sports', 'Shooter', 'Action', 'Adventire']
+query = input("Search by genre: ") #make a variable for the user's search
+query = query.capitalize() #captitalize first letter incase user types in lowercase letters
+
+#make a variable that gets values from the searched for key, defualt to empty list
+results = genre_to_name.get(query,[])
+#count the amount of results
+print("Found %i results! " %len(results))
+#go through the values and print them all out
+for result in results:
+    print(result)
+    
